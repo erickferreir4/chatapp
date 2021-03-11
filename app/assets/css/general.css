@@ -1,0 +1,92 @@
+body {
+    color: #575757;
+    font-family: 'Roboto', sans-serif;
+}
+.chatapp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background-color:#8080801f;
+}
+
+.chatapp--center {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 25px;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+}
+
+.chatapp--center h1{
+    font-size:25px;
+    color:#000;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #00000026;
+    margin-bottom: 15px;
+}
+
+.error-txt {
+    background: #ff000030;
+    color: #a93838;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    border: 1px solid #0000001c;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+form span.field{
+    display: flex;
+    flex-direction: column;
+    position:relative;
+}
+form span.wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+form span.file input{
+    border: none;
+    padding: 0;
+}
+form span.field i{
+    position: absolute;
+    right: 10px;
+    bottom: 26px;
+    color: #ccc;
+}
+form input{
+    border: 1px solid #0000003b;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 15px;
+    margin-top: 5px;
+}
+form label{
+    font-size: 14px;
+}
+form button{
+    background-color: #000000d1;
+    color: #fff;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 16px;
+    border: 1px solid;
+    margin-top: 5px;
+}
+p.link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #000;
+}
+p.link a {
+    color: #524e4e;
+}

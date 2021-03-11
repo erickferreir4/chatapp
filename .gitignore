@@ -1,0 +1,10 @@
+*.DS_Store
+/app/database/db
+/app/database/*.db
+/app/tmp/log.*
+/app/tmp/log.*
+/app/config/*.ini
+/app/config/*.json
+
+*.deploy
+
