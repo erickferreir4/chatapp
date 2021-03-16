@@ -3,7 +3,6 @@
 namespace app\controller;
 
 use app\traits\TemplateTrait;
-use app\lib\Assets;
 
 /**
  *  Index Controller

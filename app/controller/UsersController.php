@@ -20,6 +20,7 @@ class UsersController
     {
         $this->setAssets( new Assets );
         $this->addCss('users');
+        $this->addJs('users');
     }
 }
 

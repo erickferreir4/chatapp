@@ -62,6 +62,12 @@ form span.field i{
     bottom: 26px;
     color: #ccc;
 }
+
+form span.field i.is--active:before{
+    content: '\f070';
+    color:#333;
+}
+
 form input{
     border: 1px solid #0000003b;
     border-radius: 4px;

@@ -2,14 +2,13 @@
     display: flex;
     align-items: center;
     padding-bottom: 20px;
-    border-bottom: 1px solid #00000026;
+    border-bottom: 1px solid #00000012;
+    padding-top: 20px;
 }
 .chatapp--user img{
     width: 50px;
     border-radius: 100%;
     margin-right: 15px;
-}
-.chatapp--user span{
 }
 
 .chatapp--user h3{
@@ -57,10 +56,18 @@
     border-bottom-right-radius: 4px;
 }
 
-
-
 .chatapp--userslist {
+    max-height: 500px;
+    overflow: auto;
 }
+.chatapp--userslist a.is--hide{
+    display: none;
+}
+
+.chatapp--userslist::-webkit-scrollbar {
+    width: 0;
+}
+
 .chatapp--userslist img{
     width: 40px;
 }
