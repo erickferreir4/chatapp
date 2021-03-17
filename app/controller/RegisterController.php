@@ -20,6 +20,7 @@ class RegisterController
     {
         $this->setAssets( new Assets );
         $this->addJs('pass_toggle');
+        $this->addJs('register');
     }
 }
 
