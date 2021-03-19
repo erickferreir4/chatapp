@@ -29,7 +29,7 @@
 
                 <span class="field file">
                     <label>Select Image</label>
-                    <input type="file" name="file" required/>
+                    <input type="file" name="file" accept=".png,.jpg,.jpeg" required/>
                 </span>
 
                 <button type="submit">Continue to chat</button>

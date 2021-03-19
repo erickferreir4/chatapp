@@ -38,6 +38,9 @@ body {
     border: 1px solid #0000001c;
     display: none;
 }
+.error-txt.is--active {
+    display: block;
+}
 
 form {
     display: flex;

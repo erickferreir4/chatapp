@@ -8,14 +8,21 @@ const Register = {
             ev.preventDefault()
 
             let formData = new FormData(form)
+            let error  = doc.querySelector('.error-txt')
 
             fetch('/api/register', {
                 method: 'POST',
                 body: formData,
             })
-            .then( r => r.json() )
+            .then( r => r.text() )
             .then( r => {
-                console.log(r)
+                if(r !== 'success') {
+                    error.innerText = r
+                    error.classList.add('is--active')
+                }
+                else {
+                    error.classList.remove('is--active')
+                }
             })
 
         }
