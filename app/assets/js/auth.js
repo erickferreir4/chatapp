@@ -1,8 +1,7 @@
-const Register = {
-
+const Auth = {
     __form()
     {
-        let form = doc.querySelector('#form-register')
+        let form = doc.querySelector('#form-auth')
 
         let listener = ev => {
             ev.preventDefault()
@@ -10,11 +9,9 @@ const Register = {
             let formData = new FormData(form)
             let error  = doc.querySelector('.error-txt')
 
-            fetch('/api/register', {
-                method: 'POST',
-                body: formData,
-            })
-            .then( r => r.text() )
+            let url = window.location.pathname === '/login' ? '/api/login' : '/api/register'
+
+            fetch(url, {method: 'POST', body: formData,}).then( r => r.text() )
             .then( r => {
                 if(r !== 'success') {
                     error.innerText = r
@@ -22,6 +19,7 @@ const Register = {
                 }
                 else {
                     error.classList.remove('is--active')
+                    window.location.href = '/users';
                 }
             })
 
@@ -30,14 +28,10 @@ const Register = {
         form.addEventListener('submit', listener, false)
     },
 
-
-
-
-
     init()
     {
         this.__form()
     }
 }
 
-Register.init();
+Auth.init();

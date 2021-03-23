@@ -3,15 +3,15 @@
         <div class="chatapp--center">
             <h1>Realtime Chat App</h1>
             <span class="error-txt">This is an error message</span>
-            <form>
+            <form id="form-auth">
                 <span class="field">
                     <label>Email Address</label>
-                    <input type="email" placeholder="Enter you email" required/>
+                    <input type="email" name="email" placeholder="Enter you email" required/>
                 </span>
 
                 <span class="field">
                     <label>Password</label>
-                    <input type="password" placeholder="Enter you password" required/>
+                    <input type="password" name="passwd" placeholder="Enter you password" required/>
                     <i class="fas fa-eye"></i>
                 </span>
 

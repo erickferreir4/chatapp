@@ -56,8 +56,6 @@ class ApiController
         if(move_uploaded_file($file_tmp, $uploaddir)) {
             echo $this->save($data);
         }
-        //var_dump($data);
-        //var_dump($this->userExists($data->email));
     }
 
 
@@ -74,6 +72,8 @@ class ApiController
             else {
                 $model = new ApiModel();
                 if($model->insert($data)){
+                    session_start();
+                    $_SESSION['user'] = $data->email;
                     $result = 'success';
                 }
                 else {
@@ -99,13 +99,12 @@ class ApiController
             Transaction::open('db');
             Transaction::setLogger( new LoggerHTML('log.html') );
 
-
             $model = new ApiModel();
             $result = $model->find($email);
 
             Transaction::close();
 
-            return !empty($result);
+            return $result;
 
         } catch( Exception $e ) {
 
@@ -113,6 +112,29 @@ class ApiController
             Transaction::rollback();
 
             return false;
+        }
+    }
+
+    public function login()
+    {
+        $data = new stdClass;
+
+        $data->email = FilterSingleton::chars($_POST['email']);
+        $data->passwd = FilterSingleton::chars($_POST['passwd']);
+
+        $result = $this->userExists($data->email);
+        if($result) {
+            if(password_verify($data->passwd, $result->passwd)) {
+                session_start();
+                $_SESSION['user'] = $data->email;
+                echo 'success';
+            }
+            else {
+                echo 'Password incorrect!';
+            }
+        }
+        else {
+            echo 'User does not exist!';
         }
     }
 }

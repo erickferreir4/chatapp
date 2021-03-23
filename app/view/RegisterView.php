@@ -3,7 +3,7 @@
         <div class="chatapp--center">
             <h1>Realtime Chat App</h1>
             <span class="error-txt">This is an error message</span>
-            <form id="form-register">
+            <form id="form-auth">
                 <span class="wrapper">
                     <span class="field">
                         <label>First Name</label>

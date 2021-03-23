@@ -1,7 +1,9 @@
+<?php 
+?>
+
 <main>
     <div class="chatapp">
         <div class="chatapp--center">
-
 
             <div class="chatapp--user">
                 <span><img src="/assets/imgs/user-img.jpeg"/></span>
@@ -29,9 +31,6 @@
                     </div>
                 </a>
             </div>
-
-
-
 
         </div>
     </div>

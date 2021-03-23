@@ -5,6 +5,7 @@
 /app/tmp/log.*
 /app/config/*.ini
 /app/config/*.json
+/app/assets/uploads/.*
 
 *.deploy
 
