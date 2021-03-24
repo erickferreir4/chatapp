@@ -44,7 +44,7 @@ trait ModelTrait
                     photo VARCHAR(250)
                 )'; 
 
-        Transaction::log($sql);
+        //Transaction::log($sql);
 
         self::$conn->exec($sql);
     }
@@ -55,7 +55,7 @@ trait ModelTrait
 
         $result = self::$conn->query($sql);
 
-        Transaction::log($sql);
+        //Transaction::log($sql);
 
         return $result->fetchAll(PDO::FETCH_CLASS, 'stdClass');
     }

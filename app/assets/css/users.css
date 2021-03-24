@@ -23,7 +23,7 @@
     color: #575757
 }
 
-.chatapp--user button{
+.chatapp--user > a{
     background-color: #000000d1;
     color: #fff;
     border-radius: 4px;

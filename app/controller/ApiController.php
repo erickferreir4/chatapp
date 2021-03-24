@@ -24,9 +24,6 @@ class ApiController
 
     public function register()
     {
-        //var_dump($_POST);
-        //var_dump($_FILES);
-
         $data = new stdClass;
 
         $file_type = $_FILES['file']['type'];
@@ -135,6 +132,40 @@ class ApiController
         }
         else {
             echo 'User does not exist!';
+        }
+    }
+
+    public function users()
+    {
+        try {
+            Transaction::open('db');
+            Transaction::setLogger( new LoggerHTML('log.html') );
+
+            $model = new ApiModel();
+            $result = $model->all();
+
+            session_start();
+            $email = $_SESSION['user'];
+
+            $users = '';
+
+            foreach($result as $user) {
+                if($user->email === $email) continue;
+
+                $html = file_get_contents(__DIR__ . '/../html/templates/users.html');
+                $html = str_replace('[[IMG]]', '/assets/uploads/'.$user->photo, $html);
+                $html = str_replace('[[NAME]]', $user->first_name . ' ' .$user->last_name, $html);
+                $html = str_replace('[[URL]]', '/chat?id='.$user->id, $html);
+                $users .= $html;
+            }
+
+            echo strlen($users) ? $users : 'No users are available to chat';
+
+        } catch( Exception $e ) {
+            Transaction::log($e->getMessage());
+            Transaction::rollback();
+
+            echo 'No users are available to chat';
         }
     }
 }

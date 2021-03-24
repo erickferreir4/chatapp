@@ -1,9 +1,9 @@
 const searchBar = () => {
     let search = doc.querySelector('.chatapp--search input')
-    let users = doc.querySelectorAll('.chatapp--userslist > a')
 
     let listener = ev => {
 
+        let users = doc.querySelectorAll('.chatapp--userslist > a')
         let value = ev.target.value
 
         users.forEach( (el, index) => {
@@ -21,5 +21,19 @@ const searchBar = () => {
 
     search.addEventListener('keyup', listener, false)
 }
+
+
+const getUsers = () => {
+    fetch('/api/users').then( r => r.text() )
+        .then( r => {
+            doc.querySelector('#userslist')
+                .innerHTML = r
+            //console.log(r);
+        })
+}
+
+
+getUsers();
+//setInterval(getUsers, 1000);
 
 searchBar();

@@ -27,7 +27,7 @@ class AppController
     {
         $path = $_SERVER['REQUEST_URI'];
 
-        $relativeClass = ucfirst(explode('/', $path)[1]);
+        $relativeClass = ucfirst(preg_split('/(\/|\?)/', $path)[1]);
 
         if( $relativeClass === 'Index' || $relativeClass === 'App' || $relativeClass === '' ) {
             return 'app\controller\IndexController'; 
