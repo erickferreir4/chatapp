@@ -13,6 +13,7 @@ const Auth = {
 
             fetch(url, {method: 'POST', body: formData,}).then( r => r.text() )
             .then( r => {
+                console.log(r)
                 if(r !== 'success') {
                     error.innerText = r
                     error.classList.add('is--active')

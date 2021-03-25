@@ -42,6 +42,13 @@ trait ModelTrait
                     last_name VARCHAR(250),
                     passwd VARCHAR(250),
                     photo VARCHAR(250)
+                );
+                CREATE TABLE IF NOT EXISTS messages
+                (
+                    id INTEGER PRIMARY KEY,
+                    sender INT(11) NOT NULL,
+                    receiver INT(11) NOT NULL,
+                    message VARCHAR(750) NOT NULL
                 )'; 
 
         //Transaction::log($sql);
@@ -49,9 +56,9 @@ trait ModelTrait
         self::$conn->exec($sql);
     }
 
-    public function all()
+    public function all($table)
     {
-        $sql = "SELECT * FROM users";
+        $sql = "SELECT * FROM ".$table;
 
         $result = self::$conn->query($sql);
 
@@ -60,15 +67,15 @@ trait ModelTrait
         return $result->fetchAll(PDO::FETCH_CLASS, 'stdClass');
     }
 
-    public function find($email)
+    public function find($col, $search)
     {
         $sql = "SELECT * FROM users 
                 WHERE
-                    email = :email";
+                    ".$col." = :".$col;
 
         $stmt = self::$conn->prepare($sql);
 
-        $stmt->bindValue(':email', $email);
+        $stmt->bindValue(':'.$col, $search);
 
         $stmt->execute();
 

@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
 namespace app\controller;
+
 use app\helpers\FilterSingleton;
 use app\model\ApiModel;
 use app\helpers\Transaction;
@@ -69,8 +70,10 @@ class ApiController
             else {
                 $model = new ApiModel();
                 if($model->insert($data)){
+                    $result = $model->find('email', $data->email);
                     session_start();
-                    $_SESSION['user'] = $data->email;
+                    $_SESSION['user-id'] = $result->id;
+
                     $result = 'success';
                 }
                 else {
@@ -97,7 +100,7 @@ class ApiController
             Transaction::setLogger( new LoggerHTML('log.html') );
 
             $model = new ApiModel();
-            $result = $model->find($email);
+            $result = $model->find('email', $email);
 
             Transaction::close();
 
@@ -123,7 +126,7 @@ class ApiController
         if($result) {
             if(password_verify($data->passwd, $result->passwd)) {
                 session_start();
-                $_SESSION['user'] = $data->email;
+                $_SESSION['user-id'] = $result->id;
                 echo 'success';
             }
             else {
@@ -144,13 +147,15 @@ class ApiController
             $model = new ApiModel();
             $result = $model->all();
 
+            Transaction::close();
+
             session_start();
-            $email = $_SESSION['user'];
+            $user_id = $_SESSION['user-id'];
 
             $users = '';
 
             foreach($result as $user) {
-                if($user->email === $email) continue;
+                if($user->id === $user_id) continue;
 
                 $html = file_get_contents(__DIR__ . '/../html/templates/users.html');
                 $html = str_replace('[[IMG]]', '/assets/uploads/'.$user->photo, $html);
@@ -161,12 +166,40 @@ class ApiController
 
             echo strlen($users) ? $users : 'No users are available to chat';
 
+
         } catch( Exception $e ) {
             Transaction::log($e->getMessage());
             Transaction::rollback();
 
             echo 'No users are available to chat';
         }
+    }
+
+
+    public function chat()
+    {
+        $data = new stdClass;
+
+        $data->sender = FilterSingleton::chars($_POST['user-sender']);
+        $data->receiver = FilterSingleton::chars($_POST['user-receiver']);
+        $data->message = FilterSingleton::chars($_POST['message']);
+
+        try {
+
+            Transaction::open('db');
+            Transaction::setLogger( new LoggerHTML('log.html') );
+
+            $model = new ApiModel();
+
+            echo $model->insertMsg($data) ? true : false;
+
+            Transaction::close();
+
+        } catch( Exception $e ) {
+            Transaction::log($e->getMessage());
+            Transaction::rollback();
+        }
+
     }
 }
 

@@ -4,12 +4,8 @@
         <div class="chatapp--center">
 
             <div class="chatapp--user">
-                <a href="#"><i class="fas fa-arrow-left"></i></a>
-                <span><img src="/assets/imgs/user-img.jpeg"/></span>
-                <span>
-                    <h3>Coding Nepal</h3>
-                    <p>Active Now</p>
-                </span>
+                <a href="/users"><i class="fas fa-arrow-left"></i></a>
+                <?= $this->getUser() ?>
             </div>
 
             <div class="chatapp--box">
@@ -29,9 +25,11 @@
                 </span>
             </div>
 
-            <form action="#" class="chatapp--box--type">
-                <input type="text" placeholder="Type a message here..." />
-                <button><i class="fab fa-telegram-plane"></i></button> 
+            <form id="form-chat" action="#" class="chatapp--box--type">
+                <input type="hidden" name="user-sender" value="<?= $_SESSION['user-id'] ?>"/>
+                <input type="hidden" name="user-receiver" value="<?= $_GET['id'] ?>"/>
+                <input type="text" name="message" placeholder="Type a message here..." />
+                <button type="submit"><i class="fab fa-telegram-plane"></i></button> 
             </form>
 
         </div>

@@ -4,6 +4,7 @@
 
             <div class="chatapp--user">
                 <?= $this->getUser(); ?>
+                <a href="/logout">Logout</a>
             </div>
 
             <div class="chatapp--search">

@@ -8,12 +8,13 @@ trait LoggedTrait
     {
         session_start();
         
-        $url = $_SERVER['REQUEST_URI'];
+        $path = $_SERVER['REQUEST_URI'];
+        $url = strtolower(preg_split('/(\/|\?)/', $path)[1]);
 
-        if(isset($_SESSION['user']) && ($url === '/login' || $url === '/register')) {
+        if(isset($_SESSION['user-id']) && ($url === 'login' || $url === 'register')) {
             header('location: /users');
         }
-        else if (!isset($_SESSION['user']) && $url === '/users') {
+        else if (!isset($_SESSION['user-id']) && ($url === 'users' || $url === 'chat')) {
             header('location: /login');
         }
     }

@@ -7,7 +7,7 @@ class LogoutController
     public function __construct()
     {
         session_start();
-        unset($_SESSION['user']);
+        unset($_SESSION['user-id']);
         header('location: /login');
     }
 }

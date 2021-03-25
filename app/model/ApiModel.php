@@ -30,4 +30,22 @@ class ApiModel
 
         return $stmt->execute() ? true : false;
     }
+
+    public function insertMsg($data)
+    {
+        $sql = "INSERT INTO messages
+                    (sender, receiver, message)
+                VALUES
+                    (:sender, :receiver, :message);";
+
+        $stmt = self::$conn->prepare($sql);
+        
+        $stmt->bindValue(':sender', $data->sender);
+        $stmt->bindValue(':receiver', $data->receiver);
+        $stmt->bindValue(':message', $data->message);
+
+        Transaction::log($sql);
+
+        return $stmt->execute() ? true : false;
+    }
 }
