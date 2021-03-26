@@ -4,6 +4,7 @@ namespace app\model;
 
 use app\helpers\Transaction;
 use app\traits\ModelTrait;
+use PDO;
 
 class ApiModel
 {
@@ -47,5 +48,25 @@ class ApiModel
         Transaction::log($sql);
 
         return $stmt->execute() ? true : false;
+    }
+
+    public function messages($data)
+    {
+        $sql = "SELECT * FROM messages
+                WHERE
+                    sender = :sender AND receiver = :receiver
+                OR
+                    sender = :receiver AND receiver = :sender";
+
+        $stmt = self::$conn->prepare($sql);
+        
+        $stmt->bindValue(':sender', $data->sender);
+        $stmt->bindValue(':receiver', $data->receiver);
+
+        $stmt->execute();
+
+        //Transaction::log($sql);
+
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'stdClass');
     }
 }

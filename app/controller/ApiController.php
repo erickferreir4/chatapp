@@ -145,7 +145,7 @@ class ApiController
             Transaction::setLogger( new LoggerHTML('log.html') );
 
             $model = new ApiModel();
-            $result = $model->all();
+            $result = $model->all('users');
 
             Transaction::close();
 
@@ -176,7 +176,7 @@ class ApiController
     }
 
 
-    public function chat()
+    public function send()
     {
         $data = new stdClass;
 
@@ -199,6 +199,46 @@ class ApiController
             Transaction::log($e->getMessage());
             Transaction::rollback();
         }
+    }
+
+    public function messages() 
+    {
+        $data = new stdClass;
+
+        $data->sender = FilterSingleton::chars($_POST['user-sender']);
+        $data->receiver = FilterSingleton::chars($_POST['user-receiver']);
+
+        $html = '';
+
+        try {
+
+            Transaction::open('db');
+            Transaction::setLogger( new LoggerHTML('log.html') );
+
+            $model = new ApiModel();
+            $result = $model->messages($data);
+
+            foreach( $result as $message ) {
+                $receiver = file_get_contents(__DIR__.'/../html/templates/incoming.html');
+                $sender = file_get_contents(__DIR__.'/../html/templates/outgoing.html');
+
+                if($message->sender == $data->sender) {
+                    $html .= str_replace('[[MESSAGE]]', $message->message, $sender);
+                }
+                else {
+                    $img = '/assets/uploads/'.$model->find('id', $data->receiver)->photo;
+                    $receiver = str_replace('[[IMG]]',  $img, $receiver);
+                    $html .= str_replace('[[MESSAGE]]', $message->message, $receiver);
+                }
+            }
+
+            echo $html;
+
+        } catch( Exception $e ) {
+            Transaction::log($e->getMessage());
+            Transaction::rollback();
+        }
+
 
     }
 }

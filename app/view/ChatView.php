@@ -8,21 +8,7 @@
                 <?= $this->getUser() ?>
             </div>
 
-            <div class="chatapp--box">
-                <span class="chatapp--box--wrapper outgoing">
-                    <p class="chatapp--box--details">
-                        Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum 
-                        Lorem ipsum Lorem ipsum Lorem ipsum 
-                    </p>
-                </span>
-
-                <span class="chatapp--box--wrapper incoming">
-                    <span><img src="/assets/imgs/user-img.jpeg"/></span>
-                    <p class="chatapp--box--details">
-                        Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum 
-                        Lorem ipsum Lorem ipsum Lorem ipsum 
-                    </p>
-                </span>
+            <div class="chatapp--box" id="chat-messages">
             </div>
 
             <form id="form-chat" action="#" class="chatapp--box--type">
