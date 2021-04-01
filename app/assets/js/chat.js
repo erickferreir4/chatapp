@@ -43,10 +43,26 @@ const Chat = {
 
     init()
     {
-        this.__sendMessage();
+        //this.__sendMessage();
         this.__update();
         //setInterval(Chat.__getMessage, 3000)
     }
 }
 
-Chat.init();
+//Chat.init();
+//
+//
+//
+
+var conn = new WebSocket('ws://localhost:9980');
+let form = document.getElementById('form-chat');
+
+form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    conn.send('test');
+});
+
+
+conn.onmessage = function(e) {
+    console.log( e.data );
+}

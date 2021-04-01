@@ -2,13 +2,24 @@ version: "3.3"
 
 services:
 
-    chat-app:
+    #chat-app:
+    #    build:
+    #        context: ./app
+    #        dockerfile: Dockerfile
+
+    #    ports:
+    #        - "8084:80"
+
+    #    volumes:
+    #        - ./app:/var/www/html/app
+
+    socket:
         build:
-            context: ./app
+            context: ./socket
             dockerfile: Dockerfile
 
         ports:
-            - "8084:80"
+            - "9980:9980"
 
         volumes:
-            - ./app:/var/www/html/app
+            - ./socket:/var/www/html/app

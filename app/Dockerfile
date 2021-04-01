@@ -39,17 +39,16 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-av
 
 
 #install composer
-#RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 #
-#COPY ./composer.json /var/www/html/
+COPY ./composer.json /var/www/html/
 #
 ##base extensions
-#RUN apt-get update
-#RUN apt-get install -y libzip-dev
-#RUN docker-php-ext-install zip
+RUN apt-get update
+RUN apt-get install -y libzip-dev
+RUN docker-php-ext-install zip
 #
-#RUN composer update
-#RUN composer install
+RUN composer update
+RUN composer install
 
 COPY . /var/www/html/app
-
