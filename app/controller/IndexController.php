@@ -17,13 +17,18 @@ class IndexController
 
     public function __construct()
     {
+
         //session_start();
         //unset($_SESSION['user-id']);
         //var_dump($_SESSION);
-        $this->test();
+        //$this->test();
         $this->addAssets();
         $this->setTitle('Home');
         $this->layout('Index');
+
+        $test = 'id=1';
+
+        var_dump(explode('=', $test)[1]);
     }
 
     public function addAssets()

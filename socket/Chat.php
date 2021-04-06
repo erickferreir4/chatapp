@@ -14,19 +14,27 @@ class Chat implements MessageComponentInterface {
 
     public function onOpen(ConnectionInterface $conn) {
         // Store the new connection to send messages to later
+
+        $querystring = $conn->httpRequest->getUri()->getQuery();
+        $id = explode('=', $querystring)[1];
+
+        $conn->resourceId = $id;
         $this->clients->attach($conn);
 
         echo "New connection! ({$conn->resourceId})\n";
     }
 
-    public function onMessage(ConnectionInterface $from, $msg) {
-        $numRecv = count($this->clients) - 1;
-        echo sprintf('Connection %d sending message "%s" to %d other connection%s' . "\n"
-            , $from->resourceId, $msg, $numRecv, $numRecv == 1 ? '' : 's');
+    public function onMessage(ConnectionInterface $from, $json) {
+
+        $msg = json_decode($json)->msg;
+        $id = json_decode($json)->id;
+        //var_dump($msg, $id);
+
+        echo sprintf('Connection %d sending message "%s" to %d other connection' . "\n"
+            , $from->resourceId, $msg, $id );
 
         foreach ($this->clients as $client) {
-            if ($from !== $client) {
-                // The sender is not the receiver, send to each client connected
+            if ($id === $client->resourceId) {
                 $client->send($msg);
             }
         }
