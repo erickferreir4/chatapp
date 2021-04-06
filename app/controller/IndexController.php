@@ -26,9 +26,9 @@ class IndexController
         $this->setTitle('Home');
         $this->layout('Index');
 
-        $test = 'id=1';
+        //$test = 'id=1';
 
-        var_dump(explode('=', $test)[1]);
+        //var_dump(explode('=', $test)[1]);
     }
 
     public function addAssets()

@@ -2,16 +2,10 @@ const Chat = {
 
     receiver: doc.querySelector('#form-chat input[name="user-receiver"]').value,
     sender: doc.querySelector('#form-chat input[name="user-sender"]').value,
-    //conn: new WebSocket('ws://localhost:9980?id='+this.sender),
+    conn: new WebSocket('ws://localhost:9980?id='+doc.querySelector('#form-chat input[name="user-sender"]').value),
 
     __sendMessage()
     {
-        let conn = new WebSocket('ws://localhost:9980?id='+this.sender);
-        conn.onmessage = function(e) {
-            console.log( e.data );
-        }
-
-
         let form = doc.querySelector('#form-chat')
 
         let listener = ev => {
@@ -24,13 +18,39 @@ const Chat = {
 
 
             let msg = form.querySelector('input[name="message"]').value
-            conn.send(JSON.stringify({'msg': msg, 'id': this.receiver}));
-
+            this.__senderSocket(msg);
 
             form.reset();
         }
 
         form.addEventListener('submit', listener, false)
+    },
+
+    __senderSocket(msg)
+    {
+        this.conn.send(JSON.stringify({'msg': msg, 'id': this.receiver}));
+
+        let span = doc.createElement('span')
+        span.classList.add('chatapp--box--wrapper')
+        span.classList.add('outgoing')
+        span.innerHTML = `<p class="chatapp--box--details">${msg}</p>`
+
+        doc.querySelector('#chat-messages').append(span);
+    },
+
+    __receiverSocket()
+    {
+        this.conn.onmessage = function(e) {
+            console.log( e.data );
+            let msg = e.data
+
+            let span = doc.createElement('span')
+            span.classList.add('chatapp--box--wrapper')
+            span.classList.add('incoming')
+            span.innerHTML = `<p class="chatapp--box--details">${msg}</p>`
+
+            doc.querySelector('#chat-messages').append(span);
+        }
     },
 
     __update()
@@ -45,7 +65,7 @@ const Chat = {
 
         fetch(req, {method: 'POST', body: formData,}).then( r => r.text() )
             .then( r => {
-                console.log(r)
+                //console.log(r)
                 msg.innerHTML = r  
             })
     },
@@ -54,6 +74,7 @@ const Chat = {
     {
         this.__update();
         this.__sendMessage();
+        this.__receiverSocket();
     }
 }
 
