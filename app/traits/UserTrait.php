@@ -11,7 +11,7 @@ trait UserTrait
 {
     public function getUser()
     {
-        $id = $_SESSION['user-id'];
+        $id = empty($_GET) ? $_SESSION['user-id'] : $_GET['id'];
 
         try {
             Transaction::open('db');

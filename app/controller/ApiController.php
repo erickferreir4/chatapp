@@ -157,10 +157,17 @@ class ApiController
             foreach($result as $user) {
                 if($user->id === $user_id) continue;
 
+                $data = new stdClass;
+                $data->sender = $user->id;
+                $data->receiver = $user_id;
+                $msg = $model->messages($data);
+                $msg = $msg[count($msg)-1];
+
                 $html = file_get_contents(__DIR__ . '/../html/templates/users.html');
                 $html = str_replace('[[IMG]]', '/assets/uploads/'.$user->photo, $html);
                 $html = str_replace('[[NAME]]', $user->first_name . ' ' .$user->last_name, $html);
                 $html = str_replace('[[URL]]', '/chat?id='.$user->id, $html);
+                $html = str_replace('[[MESSAGE]]', $msg->message === null ? '' : $msg->message, $html);
                 $users .= $html;
             }
 

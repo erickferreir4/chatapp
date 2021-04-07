@@ -7,6 +7,7 @@ use app\helpers\Transaction;
 use app\lib\LoggerHTML;
 use app\model\ApiModel;
 use Exception;
+use stdClass;
 
 /**
  *  Index Controller
@@ -21,7 +22,7 @@ class IndexController
         //session_start();
         //unset($_SESSION['user-id']);
         //var_dump($_SESSION);
-        //$this->test();
+        $this->test();
         $this->addAssets();
         $this->setTitle('Home');
         $this->layout('Index');
@@ -48,8 +49,14 @@ class IndexController
             $result = $model->all('messages');
             //$result = $model->find('id', 1);
 
+            $data = new stdClass;
+            $data->sender = 1;
+            $data->receiver = 4;
+            $result = $model->messages($data);
+            
+            
             echo '<pre>';
-            var_dump($result);
+            var_dump($result[count($result)-1]);
 
             Transaction::close();
         } catch( Exception $e ) {

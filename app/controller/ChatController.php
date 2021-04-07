@@ -15,6 +15,10 @@ class ChatController
 
     public function __construct()
     {
+        if( empty($_GET) || $_GET['id'] === null || !is_numeric($_GET['id']) ) {
+            header('location: /users');
+        }
+
         $this->logged();
         $this->setTitle('chat');
         $this->addAssets();

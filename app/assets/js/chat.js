@@ -41,13 +41,15 @@ const Chat = {
     __receiverSocket()
     {
         this.conn.onmessage = function(e) {
-            console.log( e.data );
+            //console.log( e.data );
             let msg = e.data
 
             let span = doc.createElement('span')
             span.classList.add('chatapp--box--wrapper')
             span.classList.add('incoming')
-            span.innerHTML = `<p class="chatapp--box--details">${msg}</p>`
+
+            let img = doc.querySelector('#img-src img').getAttribute('data-src')
+            span.innerHTML = `<img src="${img}"/><p class="chatapp--box--details">${msg}</p>`
 
             doc.querySelector('#chat-messages').append(span);
         }
@@ -79,26 +81,3 @@ const Chat = {
 }
 
 Chat.init();
-
-//let sender = doc.querySelector('#form-chat input[name="user-sender"]').value
-//let receiver = doc.querySelector('#form-chat input[name="user-receiver"]').value
-
-//var conn = new WebSocket('ws://localhost:9980?id='+sender);
-//let form = document.getElementById('form-chat');
-
-//console.log(conn)
-
-//conn.onopen = function(e) {
-//    console.log(e)
-//}
-
-//form.addEventListener('submit', function (event) {
-//    let msg = doc.querySelector('#form-chat input[name="message"]').value
-//    event.preventDefault();
-//    conn.send(JSON.stringify({'msg': 'test', 'id': receiver}));
-//});
-
-
-//conn.onmessage = function(e) {
-//    console.log( e.data );
-//}
