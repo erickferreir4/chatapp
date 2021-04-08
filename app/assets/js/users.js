@@ -37,3 +37,7 @@ getUsers();
 //setInterval(getUsers, 1000);
 
 searchBar();
+
+
+//let conn = new WebSocket('ws://localhost:9980')
+

@@ -35,6 +35,7 @@ class ApiController
         $data->last_name = FilterSingleton::chars($_POST['last-name']);
         $data->email = FilterSingleton::chars($_POST['email']);
         $data->passwd = FilterSingleton::chars($_POST['passwd']);
+        $data->status = 'true';
 
         if(empty($data->first_name) || empty($data->last_name) || empty($data->email) || empty($data->passwd) ) {
             echo 'All fields are required!';
@@ -55,7 +56,6 @@ class ApiController
             echo $this->save($data);
         }
     }
-
 
     public function save($data)
     {
@@ -93,6 +93,29 @@ class ApiController
         }
     }
 
+    public function updateStatus($email, $status)
+    {
+        try {
+            Transaction::open('db');
+            Transaction::setLogger( new LoggerHTML('log.html') );
+
+            $model = new ApiModel();
+
+            $result = $model->update('users', 'status', 'email', $email, $status);
+
+            Transaction::close();
+
+            return $result;
+
+        } catch( Exception $e ) {
+
+            Transaction::log($e->getMessage());
+            Transaction::rollback();
+
+            return false;
+        }
+    }
+
     public function userExists($email)
     {
         try {
@@ -125,6 +148,7 @@ class ApiController
         $result = $this->userExists($data->email);
         if($result) {
             if(password_verify($data->passwd, $result->passwd)) {
+                $this->updateStatus($data->email, 'true');
                 session_start();
                 $_SESSION['user-id'] = $result->id;
                 echo 'success';

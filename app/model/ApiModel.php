@@ -14,9 +14,9 @@ class ApiModel
     {
 
         $sql = "INSERT INTO users
-                    (email, first_name, last_name, passwd, photo)
+                    (email, first_name, last_name, passwd, photo, status)
                 VALUES
-                    (:email, :first_name, :last_name, :passwd, :photo);";
+                    (:email, :first_name, :last_name, :passwd, :photo, :status);";
 
 
         $stmt = self::$conn->prepare($sql);
@@ -26,6 +26,7 @@ class ApiModel
         $stmt->bindValue(':last_name', $data->last_name);
         $stmt->bindValue(':passwd', password_hash($data->passwd, PASSWORD_DEFAULT));
         $stmt->bindValue(':photo', $data->file_name);
+        $stmt->bindValue(':status', $data->status);
 
         Transaction::log($sql);
 

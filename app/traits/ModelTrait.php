@@ -41,7 +41,9 @@ trait ModelTrait
                     first_name VARCHAR(250),
                     last_name VARCHAR(250),
                     passwd VARCHAR(250),
-                    photo VARCHAR(250)
+                    photo VARCHAR(250),
+                    status VARCHAR(100)
+
                 );
                 CREATE TABLE IF NOT EXISTS messages
                 (
@@ -83,6 +85,22 @@ trait ModelTrait
 
         return $stmt->fetchObject();
     }
+
+    public function update( $table, $col, $col_search, $search, $value )
+    {
+        $sql = "UPDATE ".$table."
+                    SET ".$col." = :value
+                    WHERE ".$col_search." = '".$search."'
+                ";
+
+        Transaction::log($sql);
+
+        $stmt = self::$conn->prepare($sql);
+        $stmt->bindValue(':value', $value);
+
+        return $stmt->execute() ? true : false;
+    }
+
 
 }
 

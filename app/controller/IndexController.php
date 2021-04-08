@@ -46,17 +46,15 @@ class IndexController
             Transaction::setLogger( new LoggerHTML('log.html') );
 
             $model = new ApiModel();
-            $result = $model->all('messages');
+            $result = $model->all('users');
             //$result = $model->find('id', 1);
 
-            $data = new stdClass;
-            $data->sender = 1;
-            $data->receiver = 4;
-            $result = $model->messages($data);
-            
-            
+
+            //$result = $model->update('users', 'status', 'email', 'test@gmail.com', 'false');
+
+
             echo '<pre>';
-            var_dump($result[count($result)-1]);
+            var_dump($result);
 
             Transaction::close();
         } catch( Exception $e ) {
