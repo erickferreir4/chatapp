@@ -32,10 +32,13 @@
 }
 .chatapp--user i{
     margin-left: auto;
-    color: darkgreen;
+    color:gray;
     font-size: 12px;
     margin-right: 10px;
 } 
+.chatapp--user i.is--active{
+    color: darkgreen;
+}
 
 .chatapp--search {
     display: flex;

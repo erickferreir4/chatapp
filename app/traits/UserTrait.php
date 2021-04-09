@@ -30,7 +30,7 @@ trait UserTrait
             $html = file_get_contents(__DIR__ . '/../html/templates/user.html');
             $html = str_replace('[[IMG]]', '/assets/uploads/'.$result->photo, $html);
             $html = str_replace('[[NAME]]', $result->first_name .' '. $result->last_name, $html);
-            $html = str_replace('[[STATUS]]', 'Active Now', $html);
+            $html = str_replace('[[STATUS]]', $result->status === 'true' ? 'Active Now' : 'Offline', $html);
 
             return $html;
 

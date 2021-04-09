@@ -191,6 +191,7 @@ class ApiController
                 $html = str_replace('[[IMG]]', '/assets/uploads/'.$user->photo, $html);
                 $html = str_replace('[[NAME]]', $user->first_name . ' ' .$user->last_name, $html);
                 $html = str_replace('[[URL]]', '/chat?id='.$user->id, $html);
+                $html = str_replace('[[IS-ACTIVE]]', $user->status === 'true' ? 'is--active' : '', $html);
                 $html = str_replace('[[MESSAGE]]', $msg->message === null ? '' : $msg->message, $html);
                 $users .= $html;
             }
