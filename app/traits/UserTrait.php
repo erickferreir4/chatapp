@@ -7,8 +7,14 @@ use app\lib\LoggerHTML;
 use app\model\UsersModel;
 use Exception;
 
+/**
+ *  User Trait
+ */
 trait UserTrait
 {
+    /**
+     *  Get user
+     */
     public function getUser()
     {
         $id = empty($_GET) ? $_SESSION['user-id'] : $_GET['id'];
@@ -31,6 +37,7 @@ trait UserTrait
             $html = str_replace('[[IMG]]', '/assets/uploads/'.$result->photo, $html);
             $html = str_replace('[[NAME]]', $result->first_name .' '. $result->last_name, $html);
             $html = str_replace('[[STATUS]]', $result->status === 'true' ? 'Active Now' : 'Offline', $html);
+            $html = str_replace('[[ID]]', $result->id, $html);
 
             return $html;
 

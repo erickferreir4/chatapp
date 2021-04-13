@@ -36,6 +36,7 @@ const Chat = {
         span.innerHTML = `<p class="chatapp--box--details">${msg}</p>`
 
         doc.querySelector('#chat-messages').append(span);
+        Chat.updateScroll();
     },
 
     __receiverSocket()
@@ -52,6 +53,8 @@ const Chat = {
             span.innerHTML = `<img src="${img}"/><p class="chatapp--box--details">${msg}</p>`
 
             doc.querySelector('#chat-messages').append(span);
+
+            Chat.updateScroll();
         }
     },
 
@@ -67,16 +70,25 @@ const Chat = {
 
         fetch(req, {method: 'POST', body: formData,}).then( r => r.text() )
             .then( r => {
-                //console.log(r)
                 msg.innerHTML = r  
             })
     },
+
+
+    updateScroll(){
+        let msg = doc.querySelector('#chat-messages')
+
+        msg.classList.add('is--message')
+        setTimeout(() => {msg.classList.remove('is--message')}, 2000)
+    },
+
 
     init()
     {
         this.__update();
         this.__sendMessage();
         this.__receiverSocket();
+        this.updateScroll();
     }
 }
 

@@ -7,10 +7,9 @@ use app\helpers\Transaction;
 use app\lib\LoggerHTML;
 use app\model\ApiModel;
 use Exception;
-use stdClass;
 
 /**
- *  Index Controller
+ *  Index Controller DEBUG
  */
 class IndexController
 {
@@ -18,7 +17,7 @@ class IndexController
 
     public function __construct()
     {
-
+        header('location: /login');
         //session_start();
         //unset($_SESSION['user-id']);
         //var_dump($_SESSION);
@@ -28,7 +27,6 @@ class IndexController
         $this->layout('Index');
 
         //$test = 'id=1';
-
         //var_dump(explode('=', $test)[1]);
     }
 

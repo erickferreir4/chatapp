@@ -2,8 +2,14 @@
 
 namespace app\traits;
 
+/**
+ *  Logget Trait
+ */
 trait LoggedTrait
 {
+    /**
+     *  Check is logged user
+     */
     public function logged()
     {
         session_start();

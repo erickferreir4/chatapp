@@ -7,6 +7,9 @@ use app\traits\LoggedTrait;
 use app\lib\Assets;
 use app\traits\UserTrait;
 
+/**
+ *  Users Controller
+ */
 class UsersController
 {
     use TemplateTrait;

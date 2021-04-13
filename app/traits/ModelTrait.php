@@ -5,6 +5,9 @@ namespace app\traits;
 use app\helpers\Transaction;
 use PDO;
 
+/**
+ *  Model Trait
+ */
 trait ModelTrait
 {
     private static $conn;
@@ -69,6 +72,12 @@ trait ModelTrait
         return $result->fetchAll(PDO::FETCH_CLASS, 'stdClass');
     }
 
+    /**
+     *  Find in db
+     *
+     *  @param {string} $col - column in db
+     *  @param {string} $search - search in column
+     */
     public function find($col, $search)
     {
         $sql = "SELECT * FROM users 
@@ -86,6 +95,9 @@ trait ModelTrait
         return $stmt->fetchObject();
     }
 
+    /**
+     *  Update in db
+     */
     public function update( $table, $col, $col_search, $search, $value )
     {
         $sql = "UPDATE ".$table."

@@ -6,6 +6,9 @@ use app\traits\TemplateTrait;
 use app\traits\LoggedTrait;
 use app\lib\Assets;
 
+/**
+ *  Login Controller
+ */
 class LoginController
 {
     use TemplateTrait;
@@ -24,8 +27,5 @@ class LoginController
         $this->setAssets( new Assets );
         $this->addJs('pass_toggle');
         $this->addJs('auth');
-
-        //$this->setAssets(new AssetsCdn);
-        //$this->addCss('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css');
     }
 }

@@ -38,7 +38,19 @@
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
     overflow: auto;
+
+    transition: .5s;
+    overflow-y: scroll;
+    overscroll-behavior-y: contain;
+   /*scroll-snap-type: y proximity;*/
+   /*scroll-snap-type: y mandatory;*/
+
 }
+
+.chatapp--box.is--message {
+    scroll-snap-type: y mandatory;
+}
+
 .chatapp--box::-webkit-scrollbar {
     width: 0;
 }
@@ -48,6 +60,11 @@
     font-size: 14px;
     align-items: center;
     margin-top: 20px;
+
+}
+.chatapp--box--wrapper:last-of-type {
+    scroll-snap-align: end;
+    padding-bottom: 20px;
 }
 .chatapp--box--wrapper img{
     width: 40px;

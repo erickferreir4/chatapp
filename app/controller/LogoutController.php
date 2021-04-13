@@ -7,6 +7,9 @@ use app\helpers\Transaction;
 use app\lib\LoggerHTML;
 use Exception;
 
+/**
+ *  Logout Controller
+ */
 class LogoutController
 {
     public function __construct()
@@ -20,6 +23,12 @@ class LogoutController
         header('location: /login');
     }
 
+    /**
+     *  Update Status user
+     *
+     *  @param {string, int} $id - Id user
+     *  @param {string} $status - user status
+     */
     private function updateStatus($id, $status)
     {
         try {

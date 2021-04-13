@@ -7,6 +7,9 @@ use app\lib\Assets;
 use app\traits\LoggedTrait;
 use app\traits\UserTrait;
 
+/**
+ *  Chat Controller
+ */
 class ChatController
 {
     use TemplateTrait;
@@ -30,8 +33,5 @@ class ChatController
         $this->setAssets( new Assets );
         $this->addCss('chat');
         $this->addJs('chat');
-
-        //$this->setAssets(new AssetsCdn);
-        //$this->addCss('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css');
     }
 }

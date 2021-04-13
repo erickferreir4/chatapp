@@ -9,6 +9,9 @@ use app\lib\LoggerHTML;
 use stdClass;
 use Exception;
 
+/**
+ *  Api Controller
+ */
 class ApiController
 {
     public function __construct()
@@ -23,6 +26,9 @@ class ApiController
         die();
     }
 
+    /**
+     *  Register New User
+     */
     public function register()
     {
         $data = new stdClass;
@@ -57,12 +63,15 @@ class ApiController
         }
     }
 
+    /**
+     *  Save user register
+     *  @param {stdClass} $data - object user 
+     */
     public function save($data)
     {
         try {
             Transaction::open('db');
             Transaction::setLogger( new LoggerHTML('log.html') );
-
 
             if($this->userExists($data->email)) {
                 $result = 'User Exists!';
@@ -93,6 +102,12 @@ class ApiController
         }
     }
 
+    /**
+     *  Update Status active
+     *
+     *  @param {string} $email - user email
+     *  @param {string} $status - status users
+     */
     public function updateStatus($email, $status)
     {
         try {
@@ -116,6 +131,11 @@ class ApiController
         }
     }
 
+    /**
+     *  Check user Exists
+     *
+     *  @param {string} $email - User email
+     */
     public function userExists($email)
     {
         try {
@@ -138,6 +158,9 @@ class ApiController
         }
     }
 
+    /**
+     *  Login User
+     */
     public function login()
     {
         $data = new stdClass;
@@ -162,6 +185,9 @@ class ApiController
         }
     }
 
+    /**
+     *  Get Users
+     */
     public function users()
     {
         try {
@@ -207,7 +233,9 @@ class ApiController
         }
     }
 
-
+    /**
+     *  Send Message
+     */
     public function send()
     {
         $data = new stdClass;
@@ -233,6 +261,9 @@ class ApiController
         }
     }
 
+    /**
+     *  Get Messages
+     */
     public function messages() 
     {
         $data = new stdClass;
@@ -270,8 +301,6 @@ class ApiController
             Transaction::log($e->getMessage());
             Transaction::rollback();
         }
-
-
     }
 }
 

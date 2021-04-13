@@ -6,6 +6,9 @@ use app\traits\TemplateTrait;
 use app\traits\LoggedTrait;
 use app\lib\Assets;
 
+/**
+ *  Register Controller
+ */
 class RegisterController
 {
     use TemplateTrait;

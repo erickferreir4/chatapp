@@ -22,22 +22,24 @@ const searchBar = () => {
     search.addEventListener('keyup', listener, false)
 }
 
-
 const getUsers = () => {
     fetch('/api/users').then( r => r.text() )
         .then( r => {
             doc.querySelector('#userslist')
                 .innerHTML = r
-            //console.log(r);
         })
 }
 
+const receiverSocket = () => {
+    let conn = new WebSocket('ws://localhost:9980?id='+doc.querySelector('span[data-id]').dataset.id)
+    conn.onmessage = function(e) {
+        setInterval(getUsers, 5000);
+    }
+}
 
 getUsers();
-//setInterval(getUsers, 1000);
-
 searchBar();
+receiverSocket()
 
 
-//let conn = new WebSocket('ws://localhost:9980')
 

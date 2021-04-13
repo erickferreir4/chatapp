@@ -6,10 +6,18 @@ use app\helpers\Transaction;
 use app\traits\ModelTrait;
 use PDO;
 
+/**
+ *  Api Model
+ */
 class ApiModel
 {
     use ModelTrait;
 
+    /**
+     *  Insert data
+     *
+     *  @param {stdClass} $data - object data
+     */
     public function insert($data)
     {
 
@@ -33,6 +41,11 @@ class ApiModel
         return $stmt->execute() ? true : false;
     }
 
+    /**
+     *  Insert Message
+     *
+     *  @param {stdClass} $data - object data
+     */
     public function insertMsg($data)
     {
         $sql = "INSERT INTO messages
@@ -51,6 +64,11 @@ class ApiModel
         return $stmt->execute() ? true : false;
     }
 
+    /**
+     *  Select Messages
+     *
+     *  @param {stdClass} $data - object data
+     */
     public function messages($data)
     {
         $sql = "SELECT * FROM messages
