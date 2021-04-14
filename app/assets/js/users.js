@@ -31,11 +31,12 @@ const getUsers = () => {
 }
 
 const receiverSocket = () => {
+    let conn;
     if(/localhost/.test(win.location.host)){
-        let conn = new WebSocket('ws://localhost:9980?id='+doc.querySelector('span[data-id]').dataset.id)
+        conn = new WebSocket('ws://localhost:9980?id='+doc.querySelector('span[data-id]').dataset.id)
     }
     else {
-        let conn = new WebSocket('ws://chatapp.erickferreira.ml:9980?id='+doc.querySelector('span[data-id]').dataset.id)
+        conn = new WebSocket('ws://chatapp.erickferreira.ml:9980?id='+doc.querySelector('span[data-id]').dataset.id)
     }
     conn.onmessage = function(e) {
         setInterval(getUsers, 5000);

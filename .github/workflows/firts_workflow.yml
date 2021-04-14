@@ -1,24 +1,24 @@
-#name: Deployment Workflow
-#on:
-#  push:
-#    branches: [ master ]
-#
-#jobs:
-#  job_one:
-#    name: Deploy
-#    runs-on: ubuntu-latest
-#    steps:
-#    - name: testing server ssh connection
-#      uses: appleboy/ssh-action@master
-#      with:
-#        host: ${{ secrets.HOST}}
-#        username: ${{ secrets.USERNAME }}
-#        key: ${{ secrets.KEY }}
-#        port: 22
-#        script: |
-#          cd /home/erickferreira/sites/chatapp
-#          sudo git pull origin master
-#          sudo git status
-#          sudo chown -R 33:33 app
-#          sudo chown -R 33:33 socket
-#
+name: Deployment Workflow
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  job_one:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: testing server ssh connection
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST}}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        port: 22
+        script: |
+          cd /home/erickferreira/sites/chatapp
+          sudo git pull origin master
+          sudo git status
+          sudo chown -R 33:33 app
+          sudo chown -R 33:33 socket
+
