@@ -2,7 +2,7 @@ const Chat = {
 
     receiver: doc.querySelector('#form-chat input[name="user-receiver"]').value,
     sender: doc.querySelector('#form-chat input[name="user-sender"]').value,
-    conn: new WebSocket('ws://localhost:9980?id='+doc.querySelector('#form-chat input[name="user-sender"]').value),
+    conn: null,
 
     __sendMessage()
     {
@@ -85,6 +85,13 @@ const Chat = {
 
     init()
     {
+        if(/localhost/.test(win.location.host)) {
+            this.conn = new WebSocket('ws://localhost:9980?id='+doc.querySelector('#form-chat input[name="user-sender"]').value)
+        }
+        else {
+            this.conn = new WebSocket('ws://chatapp.erickferreira.ml:9980?id='+doc.querySelector('#form-chat input[name="user-sender"]').value)
+        }
+
         this.__update();
         this.__sendMessage();
         this.__receiverSocket();

@@ -16,8 +16,9 @@
 #        key: ${{ secrets.KEY }}
 #        port: 22
 #        script: |
-#          cd /home/erickferreira/sites/myUnsplash
+#          cd /home/erickferreira/sites/chatapp
 #          sudo git pull origin master
 #          sudo git status
 #          sudo chown -R 33:33 app
-
+#          sudo chown -R 33:33 socket
+#
