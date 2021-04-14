@@ -35,7 +35,7 @@
                 <button type="submit">Continue to chat</button>
             </form>
 
-            <p class="link">Already signed up? <a href="/register">Login now</a></p>
+            <p class="link">Already signed up? <a href="/login">Login now</a></p>
         </div>
     </div>
 </main>
